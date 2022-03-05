@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {Consumer} from '../swapi-context';
+import withSwapi from '../hoc/with-swapi';
 import './item-list.css';
 
 
-const ItemList = ({ setSelectedItemId }) => {
+const ItemList = ({ setSelectedItemId, getData, children }) => {
   const [data, setData] = useState([]);
-  const swapi = useContext(Consumer)
+
 
   useEffect(() => {
-    swapi.getAllPeople()
+    getData()
       .then(data => setData(data))
       .catch(error => error)
   }, [])
@@ -19,7 +19,7 @@ const ItemList = ({ setSelectedItemId }) => {
       className="list-group-item"
       onClick={() => setSelectedItemId(person.id)}
     >
-    {person.name}
+    {children(person)}
     </li>)
   })
 
@@ -27,5 +27,7 @@ const ItemList = ({ setSelectedItemId }) => {
     <ul className="item-list list-group">{elements}</ul>
   );
 }
+
+
 
 export default ItemList;

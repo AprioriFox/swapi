@@ -14,6 +14,8 @@ const RandomPlanet = () => {
   })
   const swapi = useContext(Consumer)
 
+
+  
   useEffect(() => {
     const updatePlanet = () => {
       const id = Math.floor(Math.random() * (20 - 1) + 1);
